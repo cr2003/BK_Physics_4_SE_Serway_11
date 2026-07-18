@@ -1,0 +1,7 @@
+[project]
+name = "bk-physics-4-se-serway-11"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+
