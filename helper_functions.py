@@ -119,3 +119,30 @@ def plot_vector_xy(vx, vy, origin=(0, 0), ax=None, color="g", label=None):
         ax.legend()
 
     return ax, (magnitude, theta_deg)
+
+
+import math
+
+
+def oom(x):
+    """
+    Returns the numerical value (10^n) of the nearest order of magnitude
+    using the sqrt(10) ~ 3.162 rounding rule.
+
+    Preserves AstroPy Quantity types and their associated units.
+    """
+    has_unit = hasattr(x, "unit") and hasattr(x, "value")
+
+    # Extract raw numeric value
+    x_val = x.value if has_unit else x
+    x_abs = abs(float(x_val))
+
+    if x_abs == 0:
+        oom_numeric = 0.0
+    else:
+        # Calculate 10^exponent using the rounding rule
+        exponent = round(math.log10(x_abs))
+        oom_numeric = 10.0**exponent
+
+    # Return as AstroPy Quantity if input was one, else plain float
+    return oom_numeric * x.unit if has_unit else oom_numeric
